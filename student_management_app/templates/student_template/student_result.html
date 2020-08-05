@@ -22,7 +22,7 @@ Result
                        <th>ID</th>
                        <th>Subject</th>
                        <th>Nota e Aktivitetev</th>
-                       <th>Nota e Tes</th>
+                       <th>Nota e Testit</th>
                        <th>Status</th>
                    </tr>
                    {% for row in studentresult %}
@@ -33,9 +33,9 @@ Result
                             <td>{{ row.subject_exam_marks }}</td>
                             <td>
                                 {% if row.subject_assignment_marks >= 2 and row.subject_exam_marks >= 2 %}
-                                <span class="alert alert-success">Kalon</span>
+                                <span class="alert alert-success">Kaluat</span>
                                 {% else %}
-                                 <span class="alert alert-danger">Deshton</span>
+                                 <span class="alert alert-danger">Deshtuat</span>
                                 {% endif %}
                             </td>
                         </tr>

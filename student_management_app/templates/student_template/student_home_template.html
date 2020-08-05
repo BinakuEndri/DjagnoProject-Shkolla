@@ -1,6 +1,6 @@
 {% extends 'student_template/base_template.html' %}
 {% block page_title %}
-Home
+Ballina
 {% endblock page_title %}
 {% block main_content %}
     <!-- Main content -->
@@ -17,48 +17,19 @@ Home
               {% endif %}
           <div class="row">
 
+
           <div class="col-lg-3 col-6">
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
                 <h3>{{ total_attendance }}</h3>
 
-                <p>Total Attendance</p>
+                <p>Oret Mesimore</p>
               </div>
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
               </div>
-              <a href="{% url 'student_view_attendance' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-success">
-              <div class="inner">
-                <h3>{{ attendance_absent }}</h3>
-
-                <p>Absent</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-stats-bars"></i>
-              </div>
-              <a href="{% url 'student_view_attendance' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-warning">
-              <div class="inner">
-                <h3>{{ attendance_present }}</h3>
-
-                <p>Present</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-stats-bars"></i>
-              </div>
-              <a href="{% url 'student_view_attendance' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{% url 'student_view_attendance' %}" class="small-box-footer">Me shume info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -66,9 +37,39 @@ Home
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
+                <h3>{{ attendance_absent }}</h3>
+
+                <p>Mungesat</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-stats-bars"></i>
+              </div>
+              <a href="{% url 'student_view_attendance' %}" class="small-box-footer">Me shume info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3>{{ attendance_present }}</h3>
+
+                <p>I pranishem</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-stats-bars"></i>
+              </div>
+              <a href="{% url 'student_view_attendance' %}" class="small-box-footer">Me shume info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+              <div class="inner">
                 <h3>{{ subjects }}</h3>
 
-                <p>Total Subjects</p>
+                <p>Te gjita Lendet</p>
               </div>
               <div class="icon">
                 <i class="ion ion-pie-graph"></i>
@@ -82,7 +83,7 @@ Home
               <div class="col">
                   <div class="card card-danger">
                       <div class="card-header">
-                        <h3 class="card-title">Attendance Chart</h3>
+                        <h3 class="card-title">Pjesmarrja</h3>
 
                         <div class="card-tools">
                           <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
@@ -102,7 +103,7 @@ Home
               <div class="col">
                   <div class="card card-success">
                       <div class="card-header">
-                        <h3 class="card-title">Attendance Statistics</h3>
+                        <h3 class="card-title">Statistikat e Pjesmarrjes</h3>
 
                         <div class="card-tools">
                           <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
@@ -120,6 +121,35 @@ Home
             <!-- /.card -->
               </div>
           </div>
+          <div class="row">
+            <div class="col">
+                <div class="card card-success">
+                    <div class="card-header">
+                      <h3 class="card-title">Statistikat e Notave</h3>
+
+                      <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <div class="chart">
+                        <canvas id="barChart2" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                      </div>
+                    </div>
+                    <!-- /.card-body -->
+                  </div>
+          <!-- /.card -->
+            </div>
+
+        </div>
+        <h1>{{ data3 }}</h1>
+        <h1>{{ data4 }}</h1>
+        <h1>{{ data2 }}</h1>
+        <h1>{{ data1 }}</h1>
+
+
       </div>
     </section>
     <!-- /.content -->
@@ -128,15 +158,21 @@ Home
 <script>
     $(document).ready(function(){
 
-            var subjects={{ data_name|safe }};
+            var subjects={{ data_name |safe }};
+
             var data1={{ data1 }};
             var data2={{ data2 }};
+          
+
+            
+
+       
             //Data Set for PIE CHart
            var pieData  = {
               labels: [
-                  'ABSENT',
-                  'PRESENT',
-                  'TOTAL'
+                  'MUNGESA',
+                  'PREZENT',
+                  'TOTALI'
               ],
               datasets: [
                 {
@@ -152,7 +188,7 @@ Home
                   labels  : subjects,
                   datasets: [
                     {
-                      label               : 'Present in Class',
+                      label               : 'Prezent Ne Klase',
                       backgroundColor     : 'rgba(60,141,188,0.9)',
                       borderColor         : 'rgba(60,141,188,0.8)',
                       pointRadius          : false,
@@ -163,7 +199,7 @@ Home
                       data                : data1
                     },
                     {
-                      label               : 'Absent in Class',
+                      label               : 'Mungesat ne Klase',
                       backgroundColor     : 'rgba(210, 214, 222, 1)',
                       borderColor         : 'rgba(210, 214, 222, 1)',
                       pointRadius         : false,
@@ -175,7 +211,8 @@ Home
                     },
                   ]
                 }
-
+               
+           
 
             var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
             var pieOptions     = {
@@ -207,6 +244,51 @@ Home
               data: barChartData,
               options: barChartOptions
             })
+           
+            var areaChartData2 = {
+                  labels  : subjects,
+                  datasets: [
+                    {
+                      label               : 'Present in Class',
+                      backgroundColor     : 'rgba(60,141,188,0.9)',
+                      borderColor         : 'rgba(60,141,188,0.8)',
+                      pointRadius          : false,
+                      pointColor          : '#3b8bba',
+                      pointStrokeColor    : 'rgba(60,141,188,1)',
+                      pointHighlightFill  : '#fff',
+                      pointHighlightStroke: 'rgba(60,141,188,1)',
+                      data                : data3
+                    },
+                    {
+                      label               : 'Absent in Class',
+                      backgroundColor     : 'rgba(210, 214, 222, 1)',
+                      borderColor         : 'rgba(210, 214, 222, 1)',
+                      pointRadius         : false,
+                      pointColor          : 'rgba(210, 214, 222, 1)',
+                      pointStrokeColor    : '#c1c7d1',
+                      pointHighlightFill  : '#fff',
+                      pointHighlightStroke: 'rgba(220,220,220,1)',
+                      data                : data2
+                    },
+                  ]
+                }
+                var barChartCanvas2 = $('#barChart2').get(0).getContext('2d')
+                var temp2 = areaChartData2.datasets[0]
+                areaChartData2.datasets[0] = temp2
+
+                var barChartOptions2 = {
+                  responsive              : true,
+                  maintainAspectRatio     : false,
+                  datasetFill             : false
+                }
+
+                var areaChartData2= new Chart(barChartCanvas2, {
+                  type: 'bar',
+                  data: barChartData2,
+                  options: barChartOptions2
+                })  
+
+          
     })
 </script>
 <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-app.js"></script>

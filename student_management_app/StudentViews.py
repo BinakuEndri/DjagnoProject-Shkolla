@@ -24,16 +24,28 @@ def student_home(request):
     subject_name=[]
     data_present=[]
     data_absent=[]
+    assigment_marks=[]
+    exam_marks=[]
+    
     subject_data=Subjects.objects.filter(course_id=student_obj.course_id)
     for subject in subject_data:
         attendance=Attendance.objects.filter(subject_id=subject.id)
+        result=StudentResult.objects.filter(subject_id=subject.id)
         attendance_present_count=AttendanceReport.objects.filter(attendance_id__in=attendance,status=True,student_id=student_obj.id).count()
         attendance_absent_count=AttendanceReport.objects.filter(attendance_id__in=attendance,status=False,student_id=student_obj.id).count()
+        assigment_marks_nota=StudentResult.objects.filter(student_id = student_obj.id,subject_id=subject.id).values_list('subject_assignment_marks', flat=True)
+        exam_marks_nota=StudentResult.objects.filter(student_id=student_obj.id,subject_id=subject.id).values_list('subject_exam_marks', flat=True)
+
+        
         subject_name.append(subject.subject_name)
         data_present.append(attendance_present_count)
         data_absent.append(attendance_absent_count)
+        exam_marks.append(exam_marks_nota)
+        assigment_marks.append(assigment_marks_nota)
+    
+        
 
-    return render(request,"student_template/student_home_template.html",{"total_attendance":attendance_total,"attendance_absent":attendance_absent,"attendance_present":attendance_present,"subjects":subjects,"data_name":subject_name,"data1":data_present,"data2":data_absent,"class_room":class_room})
+    return render(request,"student_template/student_home_template.html",{"total_attendance":attendance_total,"attendance_absent":attendance_absent,"attendance_present":attendance_present,"subjects":subjects,"data_name":subject_name,"data1":data_present,"data2":data_absent,"data3":assigment_marks,"data4":exam_marks,"class_room":class_room})
 
 def join_class_room(request,subject_id,session_year_id):
     session_year_obj=SessionYearModel.object.get(id=session_year_id)
