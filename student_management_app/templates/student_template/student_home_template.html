@@ -144,10 +144,15 @@ Ballina
             </div>
 
         </div>
-        <h1>{{ data3 }}</h1>
-        <h1>{{ data4 }}</h1>
+        <h1>{{ assigment }}</h1>
+
         <h1>{{ data2 }}</h1>
         <h1>{{ data1 }}</h1>
+        <h1>{{ exam }}</h1>
+        <h1>{{ studentresult }}</h1>
+        <h1>{{ result }}</h1>
+        <h1>{{ attendance2 }}</h1>
+
 
 
       </div>
@@ -244,7 +249,8 @@ Ballina
               data: barChartData,
               options: barChartOptions
             })
-           
+            var exam={{ exam }};
+            var assigment={{ assigment }};
             var areaChartData2 = {
                   labels  : subjects,
                   datasets: [
@@ -257,24 +263,25 @@ Ballina
                       pointStrokeColor    : 'rgba(60,141,188,1)',
                       pointHighlightFill  : '#fff',
                       pointHighlightStroke: 'rgba(60,141,188,1)',
-                      data                : data3
+                      data                : assigment
                     },
                     {
-                      label               : 'Absent in Class',
-                      backgroundColor     : 'rgba(210, 214, 222, 1)',
-                      borderColor         : 'rgba(210, 214, 222, 1)',
-                      pointRadius         : false,
-                      pointColor          : 'rgba(210, 214, 222, 1)',
-                      pointStrokeColor    : '#c1c7d1',
+                      label               : 'Present in Class',
+                      backgroundColor     : 'rgba(60,141,188,0.9)',
+                      borderColor         : 'rgba(60,141,188,0.8)',
+                      pointRadius          : false,
+                      pointColor          : '#3b8bba',
+                      pointStrokeColor    : 'rgba(60,141,188,1)',
                       pointHighlightFill  : '#fff',
-                      pointHighlightStroke: 'rgba(220,220,220,1)',
-                      data                : data2
+                      pointHighlightStroke: 'rgba(60,141,188,1)',
+                      data                : exam
                     },
                   ]
                 }
                 var barChartCanvas2 = $('#barChart2').get(0).getContext('2d')
-                var temp2 = areaChartData2.datasets[0]
-                areaChartData2.datasets[0] = temp2
+                var barChartData2 = jQuery.extend(true, {}, areaChartData2)
+                var temp1 = areaChartData2.datasets[0]
+                barChartData2.datasets[0] = temp1
 
                 var barChartOptions2 = {
                   responsive              : true,
@@ -282,12 +289,11 @@ Ballina
                   datasetFill             : false
                 }
 
-                var areaChartData2= new Chart(barChartCanvas2, {
+                var barChart2 = new Chart(barChartCanvas2, {
                   type: 'bar',
                   data: barChartData2,
                   options: barChartOptions2
-                })  
-
+                })
           
     })
 </script>
