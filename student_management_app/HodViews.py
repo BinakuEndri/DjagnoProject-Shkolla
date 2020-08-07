@@ -16,6 +16,7 @@ from student_management_app.models import CustomUser, Staffs, Courses, Subjects,
 
 
 def admin_home(request):
+
     student_count1=Students.objects.all().count()
     staff_count=Staffs.objects.all().count()
     subject_count=Subjects.objects.all().count()
@@ -64,9 +65,11 @@ def admin_home(request):
         attendance_present_list_student.append(attendance)
         attendance_absent_list_student.append(leaves+absent)
         student_name_list.append(student.admin.username)
+    
+    students=Students.objects.all()
 
 
-    return render(request,"hod_template/home_content.html",{"student_count":student_count1,"staff_count":staff_count,"subject_count":subject_count,"course_count":course_count,"course_name_list":course_name_list,"subject_count_list":subject_count_list,"student_count_list_in_course":student_count_list_in_course,"student_count_list_in_subject":student_count_list_in_subject,"subject_list":subject_list,"staff_name_list":staff_name_list,"attendance_present_list_staff":attendance_present_list_staff,"attendance_absent_list_staff":attendance_absent_list_staff,"student_name_list":student_name_list,"attendance_present_list_student":attendance_present_list_student,"attendance_absent_list_student":attendance_absent_list_student})
+    return render(request,"hod_template/home_content.html",{"student_count":student_count1,"staff_count":staff_count,"subject_count":subject_count,"course_count":course_count,"course_name_list":course_name_list,"subject_count_list":subject_count_list,"student_count_list_in_course":student_count_list_in_course,"student_count_list_in_subject":student_count_list_in_subject,"subject_list":subject_list,"staff_name_list":staff_name_list,"attendance_present_list_staff":attendance_present_list_staff,"attendance_absent_list_staff":attendance_absent_list_staff,"student_name_list":student_name_list,"attendance_present_list_student":attendance_present_list_student,"attendance_absent_list_student":attendance_absent_list_student,"students":students})
 
 def add_staff(request):
     return render(request,"hod_template/add_staff_template.html")

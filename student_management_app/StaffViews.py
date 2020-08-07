@@ -15,7 +15,6 @@ from student_management_app.models import Subjects, SessionYearModel, Students, 
 
 
 def staff_home(request):
-    #For Fetch All Student Under Staff
     subjects=Subjects.objects.filter(staff_id=request.user.id)
     course_id_list=[]
     for subject in subjects:
@@ -23,22 +22,18 @@ def staff_home(request):
         course_id_list.append(course.id)
 
     final_course=[]
-    #removing Duplicate Course ID
     for course_id in course_id_list:
         if course_id not in final_course:
             final_course.append(course_id)
 
     students_count=Students.objects.filter(course_id__in=final_course).count()
 
-    #Fetch All Attendance Count
     attendance_count=Attendance.objects.filter(subject_id__in=subjects).count()
 
-    #Fetch All Approve Leave
     staff=Staffs.objects.get(admin=request.user.id)
     leave_count=LeaveReportStaff.objects.filter(staff_id=staff.id,leave_status=1).count()
     subject_count=subjects.count()
 
-    #Fetch Attendance Data by Subject
     subject_list=[]
     attendance_list=[]
     for subject in subjects:

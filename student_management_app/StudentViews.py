@@ -5,6 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
+import json
 
 from student_management_app.models import Students, Courses, Subjects, CustomUser, Attendance, AttendanceReport, \
     LeaveReportStudent, FeedBackStudent, NotificationStudent, StudentResult, OnlineClassRoom, SessionYearModel
@@ -34,21 +35,30 @@ def student_home(request):
         result=StudentResult.objects.filter(subject_id=subject.id)
         attendance_present_count=AttendanceReport.objects.filter(attendance_id__in=attendance,status=True,student_id=student_obj.id).count()
         attendance_absent_count=AttendanceReport.objects.filter(attendance_id__in=attendance,status=False,student_id=student_obj.id).count()
+        # qetu daj ki me ndreq 
+        # Poblemi qendro tek mi ru notat prej QuerySet Ne List 
+        # Nese e hjek qata subject_assigment_marks ti run ama nuk i run sipas ID qe jan landet
+        # Masi te ruhen duhet me dal ne Chart te 'student_template/student_home_template te areaChartData2
+        # qekjo assigment_marks_nota asht e flirtuar mire ama spo e run ne List 
+        # exam_marks_nota_ i merr notat po nuk i run sidas Id te Landve qe jan ne Chart 
+
         assigment_marks_nota=StudentResult.objects.filter(student_id=student_obj.id,subject_assignment_marks__in=result).values_list('subject_assignment_marks',flat=True)
         exam_marks_nota=StudentResult.objects.filter(student_id=student_obj.id).values_list('subject_exam_marks',flat=True)
-        attendance2=Attendance.objects.filter(subject_id=subject.id).count()
 
         
         subject_name.append(subject.subject_name)
         data_present.append(attendance_present_count)
         data_absent.append(attendance_absent_count)
         exam=list(exam_marks_nota)
-        assigment=list(assigment_marks_nota)
+        assigment=json.dumps(list(assigment_marks_nota))
+       #qeto i kum provu
+        # assigment.append(assigment_marks_nota)
+        #assigmet=list(assigment_marks_nota)
         
     
         
 
-    return render(request,"student_template/student_home_template.html",{"total_attendance":attendance_total,"attendance2":attendance2,"attendance_absent":attendance_absent,"result":result,"attendance_present":attendance_present,"subjects":subjects,"data_name":subject_name,"data1":data_present,"exam":exam,"assigment":assigment,"data2":data_absent,"class_room":class_room})
+    return render(request,"student_template/student_home_template.html",{"total_attendance":attendance_total,"attendance_absent":attendance_absent,"result":result,"attendance_present":attendance_present,"subjects":subjects,"data_name":subject_name,"data1":data_present,"exam":exam,"assigment":assigment,"data2":data_absent,"class_room":class_room})
 
 def join_class_room(request,subject_id,session_year_id):
     session_year_obj=SessionYearModel.object.get(id=session_year_id)

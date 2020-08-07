@@ -128,6 +128,49 @@ Ballina
                 </div>
               </div>
           </div>
+          <section>
+            <div class="container-fluid ">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div>
+                    <h2>Lorem ipsum dolor sit amet, consectetur adipiscing</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+                  </div>
+                </div>
+              </div>
+              <div  class=" owl-carousel owl-nav-top-left" data-animateOut="fadeOut" data-nav-arrow="true" data-items="4" data-md-items="2" data-sm-items="2" data-xs-items="1" data-xx-items="1" data-space="30">
+                
+                {% for student in students %}
+
+                <div class="item h-100" >
+                  <div class="property-item">
+                    <div class="property-image bg-overlay-gradient-04">
+                      <img style="height:100px; width: 100%; object-fit: cover;" src="{{ student.profile_pic }}" alt="">
+          
+                    </div>
+                    <div class="property-details">
+                      <div class="property-details-inner">
+                        <h5 class="property-title"><a href="property-detail-style-01.html">{{ student.admin.first_name }}</a></h5>
+                        <span class="property-address"><i class="fas fa-map-marker-alt fa-xs">{{ student.address }}</i></span>
+                        <p class="property-agent-date"><i class="far fa-user fa-md"></i>{{ student.gender }}</p>
+                        
+                      </div>
+                      <div class="property-btn">
+                        <a class="property-link" href="#">Visit Dentist</a>
+                        <!-- <ul class="property-listing-actions list-unstyled mb-0">
+                          <li class="property-compare"><a data-toggle="tooltip" data-placement="top" title="Compare" href="#"><i class="fas fa-exchange-alt"></i></a></li>
+                        </ul> -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                {% endfor %}
+                
+          
+              </div>
+            </div>
+          </section>
          <!--  <div class="row">
               <div class="col-lg-12">
                   <div class="card card-success">
